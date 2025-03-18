@@ -1,0 +1,11 @@
+{
+  "name": "one-click-block-twitter",
+  "version": "1.0.0",
+  "description": "Block a user with just one click on Twitter / X.",
+  "main": "content.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Raiquen Guidotti",
+  "license": "MIT"
+}
