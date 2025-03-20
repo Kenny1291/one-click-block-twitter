@@ -5,7 +5,6 @@
   "main": "content.js",
   "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "folder": "node -e \"import('./scripts/make-test-folder.js').then(({ make }) => make())\""
   },
   "author": "Raiquen Guidotti",

@@ -10,11 +10,6 @@ export default [
         files: [
             "**/*.js",
         ],
-        // ignores: [
-        //     "playwright-report/**",
-        //     "src/vendor/**",
-        //     "dist/cleaner-twitter/vendor/**",
-        // ],
         languageOptions: {
             parser: babelParser,
             parserOptions: {
@@ -23,7 +18,6 @@ export default [
                   babelrc: false,
                   configFile: false,
                   presets: ["@babel/preset-env"],
-                //   plugins: ["@babel/plugin-syntax-import-attributes"],
                 }
             },
             globals: {
@@ -175,6 +169,7 @@ export default [
             "@stylistic/js/switch-colon-spacing": "error",
             "@stylistic/js/template-curly-spacing": "error",
             "@stylistic/js/template-tag-spacing": "error",
+            "@stylistic/js/indent": "error"
         },
     },
 ]
