@@ -169,7 +169,7 @@ export default [
             "@stylistic/js/switch-colon-spacing": "error",
             "@stylistic/js/template-curly-spacing": "error",
             "@stylistic/js/template-tag-spacing": "error",
-            "@stylistic/js/indent": "error"
+            "@stylistic/js/indent": ["error", 4, { "MemberExpression": 0 }]
         },
     },
 ]
