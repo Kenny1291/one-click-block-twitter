@@ -97,12 +97,12 @@ function blockUser(screenName) {
             credentials: "include"
         }
     )
-        .then(response => {
-            if (!response.ok) {
-                return response.json().then(errData => {
-                    throw new Error(`HTTP error! Status: ${response.status}, Message: ${JSON.stringify(errData)}`)
-                })
-            }
-            return response.json()
-        })
+    .then(response => {
+        if (!response.ok) {
+            return response.json().then(errData => {
+                throw new Error(`HTTP error! Status: ${response.status}, Message: ${JSON.stringify(errData)}`)
+            })
+        }
+        return response.json()
+    })
 }
