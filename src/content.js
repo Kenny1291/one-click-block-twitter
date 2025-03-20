@@ -64,7 +64,7 @@ function injectStyles() {
     }
     `
     document.head.appendChild(styleSheet)
-  }
+}
 
 const BEARER_TOKEN = "Bearer AAAAAAAAAAAAAAAAAAAAANRILgAAAAAAnNwIzUejRCOuH5E6I8xnZz4puTs%3D1Zv7ttfk8LF81IUq16cHjhLTvJu4FA33AGWWjCpTnA"
 
@@ -97,12 +97,12 @@ function blockUser(screenName) {
             credentials: "include"
         }
     )
-    .then(response => {
-        if (!response.ok) {
-        return response.json().then(errData => {
-            throw new Error(`HTTP error! Status: ${response.status}, Message: ${JSON.stringify(errData)}`)
+        .then(response => {
+            if (!response.ok) {
+                return response.json().then(errData => {
+                    throw new Error(`HTTP error! Status: ${response.status}, Message: ${JSON.stringify(errData)}`)
+                })
+            }
+            return response.json()
         })
-        }
-        return response.json()
-    })
 }
