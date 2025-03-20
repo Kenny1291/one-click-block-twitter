@@ -37,31 +37,31 @@ function injectStyles() {
     const styleSheet = document.createElement('style')
     styleSheet.id = 'block-button-styles'
     styleSheet.textContent = `
-      #blockButtonWrapper {
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        width: 34px;
-        height: 34px;
-        border-radius: 9999px;
-        cursor: pointer;
-        background-color: transparent;
-        transition: background-color 0.2s ease;
-        pointer-events: auto;
-        z-index: 10;
-        position: relative;
-      }
-      #blockButtonWrapper:hover {
-        background-color: rgba(29, 155, 240, 0.1); /* Light blue hover */
-      }
+        #blockButtonWrapper {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 34px;
+            height: 34px;
+            border-radius: 9999px;
+            cursor: pointer;
+            background-color: transparent;
+            transition: background-color 0.2s ease;
+            pointer-events: auto;
+            z-index: 10;
+            position: relative;
+        }
+        #blockButtonWrapper:hover {
+            background-color: rgba(29, 155, 240, 0.1);
+        }
 
-    #blockButtonWrapper .oneClickBlockTwitterButton path {
-        fill: rgb(113, 118, 123); /* Twitter's default light gray */
-    }
+        #blockButtonWrapper .oneClickBlockTwitterButton path {
+            fill: rgb(113, 118, 123);
+        }
         #blockButtonWrapper:hover .oneClickBlockTwitterButton path {
-        fill: rgb(29, 155, 240); /* Light blue fill for SVG path on hover */
-        transition: fill 0.2s ease; /* Smooth color transition */
-    }
+            fill: rgb(29, 155, 240);
+            transition: fill 0.2s ease;
+        }
     `
     document.head.appendChild(styleSheet)
 }
