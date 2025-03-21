@@ -91,12 +91,10 @@ function blockUser(screenName) {
     const csrfToken = document.cookie.match(/ct0=([^;]+)/)?.[1]
 
     if (!csrfToken) {
-        // eslint-disable-next-line no-console
-        console.error("CSRF token not found")
-        return
+        return Promise.reject(new Error("CSRF token not found"))
     }
 
-    fetch(
+    return fetch(
         url,
         {
             method: "POST",
@@ -110,9 +108,7 @@ function blockUser(screenName) {
     )
     .then(response => {
         if (!response.ok) {
-            return response.json().then(errData => {
-                throw new Error(`HTTP error! Status: ${response.status}, Message: ${JSON.stringify(errData)}`)
-            })
+            throw new Error('HTTP error')
         }
         return response.json()
     })
