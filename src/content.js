@@ -3,7 +3,15 @@ injectStyles()
 const observer = new MutationObserver(injectBlockButtons)
 observer.observe(document.body, { childList: true, subtree: true })
 
+let isInjecting = false
+
 function injectBlockButtons() {
+    if (isInjecting) {
+        return
+    }
+
+    isInjecting = true
+
     const tweetArticles = document.querySelectorAll('article[data-testid="tweet"]')
 
     for (const tweet of tweetArticles) {
@@ -29,6 +37,8 @@ function injectBlockButtons() {
 
         threeDotsMostOuterDiv?.insertAdjacentElement('beforebegin', blockButtonWrapper)
     }
+
+    isInjecting = false
 }
 
 function injectStyles() {
