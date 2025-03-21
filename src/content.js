@@ -89,7 +89,7 @@ const BEARER_TOKEN = "Bearer AAAAAAAAAAAAAAAAAAAAANRILgAAAAAAnNwIzUejRCOuH5E6I8x
  * @param {string} screenName
  * @returns {Promise<object>}
  */
-function blockUser(screenName) {
+async function blockUser(screenName) {
     const url = `https://api.x.com/1.1/blocks/create.json?screen_name=${screenName}&skip_status=1`
 
     //TODO: Refactor without regex
@@ -97,7 +97,7 @@ function blockUser(screenName) {
     const csrfToken = document.cookie.match(/ct0=([^;]+)/)?.[1]
 
     if (!csrfToken) {
-        return Promise.reject(new Error("CSRF token not found"))
+        throw new Error("CSRF token not found")
     }
 
     return fetch(
