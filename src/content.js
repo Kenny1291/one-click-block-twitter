@@ -32,8 +32,14 @@ function injectBlockButtons() {
         blockButtonWrapper.appendChild(blockButton)
         blockButtonWrapper.addEventListener('click', async event => {
             event.stopPropagation()
+            const previousStyle = tweet.style.display
             tweet.style.display = 'none'
-            blockUser(screenName)
+            try {
+                await blockUser(screenName)
+            } catch (error) {
+                tweet.style.display = previousStyle
+                //TODO: Show twitter style "notification"
+            }
         })
 
         threeDotsMostOuterDiv?.insertAdjacentElement('beforebegin', blockButtonWrapper)
