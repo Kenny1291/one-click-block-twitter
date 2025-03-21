@@ -32,7 +32,7 @@ function injectBlockButtons() {
             blockUser(screenName)
         })
         const blockButtonWrapper = document.createElement('div')
-        blockButtonWrapper.id = 'blockButtonWrapper'
+        blockButtonWrapper.className = 'blockButtonWrapper'
         blockButtonWrapper.appendChild(blockButton)
 
         threeDotsMostOuterDiv?.insertAdjacentElement('beforebegin', blockButtonWrapper)
@@ -47,7 +47,7 @@ function injectStyles() {
     const styleSheet = document.createElement('style')
     styleSheet.id = 'block-button-styles'
     styleSheet.textContent = `
-        #blockButtonWrapper {
+        .blockButtonWrapper {
             display: inline-flex;
             align-items: center;
             justify-content: center;
@@ -61,14 +61,14 @@ function injectStyles() {
             z-index: 10;
             position: relative;
         }
-        #blockButtonWrapper:hover {
+        .blockButtonWrapper:hover {
             background-color: rgba(29, 155, 240, 0.1);
         }
 
-        #blockButtonWrapper .oneClickBlockTwitterButton path {
+        .blockButtonWrapper .oneClickBlockTwitterButton path {
             fill: rgb(113, 118, 123);
         }
-        #blockButtonWrapper:hover .oneClickBlockTwitterButton path {
+        .blockButtonWrapper:hover .oneClickBlockTwitterButton path {
             fill: rgb(29, 155, 240);
             transition: fill 0.2s ease;
         }
