@@ -78,7 +78,7 @@ const BEARER_TOKEN = "Bearer AAAAAAAAAAAAAAAAAAAAANRILgAAAAAAnNwIzUejRCOuH5E6I8x
 
 /**
  * @param {string} screenName
- * @param {string} unblock
+ * @param {string} action
  * @returns {Promise<object>}
  */
 async function blockAction(screenName, action = 'block') {
