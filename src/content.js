@@ -35,10 +35,10 @@ function injectBlockButtons() {
             const previousStyle = tweet.style.display
             tweet.style.display = 'none'
             try {
-                await blockUser(screenName)
+                await blockAction(screenName)
+                showBlockToast(screenName, tweet, previousStyle)
             } catch (error) {
                 tweet.style.display = previousStyle
-                //TODO: Show twitter style "notification"
             }
         })
 
@@ -46,6 +46,70 @@ function injectBlockButtons() {
     }
 
     isInjecting = false
+}
+
+function showBlockToast(screenName, tweet, previousTweetStyle) {
+    const toast = document.createElement('div')
+    toast.className = 'block-toast'
+    toast.innerHTML = `
+        <div class="toast-content">
+            <span>@${screenName} has been blocked</span>
+            <button class="undo-button">Undo</button>
+        </div>
+    `
+    document.body.appendChild(toast)
+
+    const timeoutId = setTimeout(() => {
+        toast.remove()
+    }, 5000)
+
+    const undoButton = toast.querySelector('.undo-button')
+    undoButton.addEventListener('click', async () => {
+        try {
+            await blockAction(screenName, 'unblock')
+            tweet.style.display = previousTweetStyle
+            clearTimeout(timeoutId)
+            toast.remove()
+        } catch (error) {}
+    })
+}
+
+const BEARER_TOKEN = "Bearer AAAAAAAAAAAAAAAAAAAAANRILgAAAAAAnNwIzUejRCOuH5E6I8xnZz4puTs%3D1Zv7ttfk8LF81IUq16cHjhLTvJu4FA33AGWWjCpTnA"
+
+/**
+ * @param {string} screenName
+ * @param {string} unblock
+ * @returns {Promise<object>}
+ */
+async function blockAction(screenName, action = 'block') {
+    const url = `https://api.x.com/1.1/blocks/${action === 'unblock' ? 'destroy' : 'create'}.json?screen_name=${screenName}&skip_status=1`
+
+    //TODO: Refactor without regex
+    // eslint-disable-next-line no-restricted-syntax
+    const csrfToken = document.cookie.match(/ct0=([^;]+)/)?.[1]
+
+    if (!csrfToken) {
+        throw new Error("CSRF token not found")
+    }
+
+    return fetch(
+        url,
+        {
+            method: "POST",
+            headers: {
+                "Authorization": BEARER_TOKEN,
+                "x-csrf-token": csrfToken,
+                "Content-Type": "application/x-www-form-urlencoded"
+            },
+            credentials: "include"
+        }
+    )
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('HTTP error')
+        }
+        return response.json()
+    })
 }
 
 function injectStyles() {
@@ -79,43 +143,35 @@ function injectStyles() {
             fill: rgb(29, 155, 240);
             transition: fill 0.2s ease;
         }
+        .block-toast {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #1DA1F2;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+            z-index: 10000;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        }
+        .toast-content {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        .undo-button {
+            background: none;
+            border: none;
+            color: white;
+            text-decoration: underline;
+            cursor: pointer;
+            font-size: 14px;
+        }
+        .undo-button:hover {
+            color: #E1E8ED;
+        }
     `
     document.head.appendChild(styleSheet)
-}
-
-const BEARER_TOKEN = "Bearer AAAAAAAAAAAAAAAAAAAAANRILgAAAAAAnNwIzUejRCOuH5E6I8xnZz4puTs%3D1Zv7ttfk8LF81IUq16cHjhLTvJu4FA33AGWWjCpTnA"
-
-/**
- * @param {string} screenName
- * @returns {Promise<object>}
- */
-async function blockUser(screenName) {
-    const url = `https://api.x.com/1.1/blocks/create.json?screen_name=${screenName}&skip_status=1`
-
-    //TODO: Refactor without regex
-    // eslint-disable-next-line no-restricted-syntax
-    const csrfToken = document.cookie.match(/ct0=([^;]+)/)?.[1]
-
-    if (!csrfToken) {
-        throw new Error("CSRF token not found")
-    }
-
-    return fetch(
-        url,
-        {
-            method: "POST",
-            headers: {
-                "Authorization": BEARER_TOKEN,
-                "x-csrf-token": csrfToken,
-                "Content-Type": "application/x-www-form-urlencoded"
-            },
-            credentials: "include"
-        }
-    )
-    .then(response => {
-        if (!response.ok) {
-            throw new Error('HTTP error')
-        }
-        return response.json()
-    })
 }
