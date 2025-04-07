@@ -53,7 +53,7 @@ function injectBlockButtons() {
                 showBlockToast(screenName, tweet, previousDisplayStyle, hiddenTweets)
             } catch (error) {
                 tweet.style.display = previousDisplayStyle
-                hiddenTweets.forEach(({tweet, displayStyle}) => {
+                hiddenTweets.forEach(({ tweet, displayStyle }) => {
                     tweet.style.display = displayStyle
                 })
             }
@@ -66,19 +66,19 @@ function injectBlockButtons() {
 }
 
 /**
- * @param {string} screenNameToRemove 
- * @param {HTMLElement} tweetToExclude 
+ * @param {string} screenNameToRemove
+ * @param {HTMLElement} tweetToExclude
  * @returns {Array<{tweet: HTMLElement, displayStyle: string}>}
  */
 function removeUserTweets(screenNameToRemove, tweetToExclude) {
-    const tweetArticles = document.querySelectorAll('article[data-testid="tweet"]');
+    const tweetArticles = document.querySelectorAll('article[data-testid="tweet"]')
     const hiddenTweets = []
     tweetArticles.forEach(tweet => {
         if (tweet === tweetToExclude) return
-        const screenNameSpan = tweet.querySelector('a[href*="/"][role="link"][tabindex="-1"] span');
-        const tweetScreenName = screenNameSpan?.textContent?.replace("@", '')?.trim();
+        const screenNameSpan = tweet.querySelector('a[href*="/"][role="link"][tabindex="-1"] span')
+        const tweetScreenName = screenNameSpan?.textContent?.replace("@", '')?.trim()
         if (tweetScreenName === screenNameToRemove) {
-            hiddenTweets.push({tweet, displayStyle: tweet.style.display})
+            hiddenTweets.push({ tweet, displayStyle: tweet.style.display })
             tweet.style.display = 'none'
         }
     })
@@ -86,10 +86,10 @@ function removeUserTweets(screenNameToRemove, tweetToExclude) {
 }
 
 /**
- * @param {string} screenName 
- * @param {HTMLElement} tweet 
- * @param {string} previousTweetDisplayStyle 
- * @param {Array<{tweet: HTMLElement, displayStyle: string}>} hiddenTweets 
+ * @param {string} screenName
+ * @param {HTMLElement} tweet
+ * @param {string} previousTweetDisplayStyle
+ * @param {Array<{tweet: HTMLElement, displayStyle: string}>} hiddenTweets
  */
 function showBlockToast(screenName, tweet, previousTweetDisplayStyle, hiddenTweets) {
     const toast = document.createElement('div')
