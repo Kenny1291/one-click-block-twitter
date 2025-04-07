@@ -45,13 +45,17 @@ function injectBlockButtons() {
         blockButtonWrapper.appendChild(blockButton)
         blockButtonWrapper.addEventListener('click', async event => {
             event.stopPropagation()
-            const previousStyle = tweet.style.display
+            const previousDisplayStyle = tweet.style.display
             tweet.style.display = 'none'
+            const hiddenTweets = removeUserTweets(screenName, tweet)
             try {
                 await blockAction(screenName)
-                showBlockToast(screenName, tweet, previousStyle)
+                showBlockToast(screenName, tweet, previousDisplayStyle, hiddenTweets)
             } catch (error) {
-                tweet.style.display = previousStyle
+                tweet.style.display = previousDisplayStyle
+                hiddenTweets.forEach(({ tweet, displayStyle }) => {
+                    tweet.style.display = displayStyle
+                })
             }
         })
 
@@ -61,7 +65,33 @@ function injectBlockButtons() {
     isInjecting = false
 }
 
-function showBlockToast(screenName, tweet, previousTweetStyle) {
+/**
+ * @param {string} screenNameToRemove
+ * @param {HTMLElement} tweetToExclude
+ * @returns {Array<{tweet: HTMLElement, displayStyle: string}>}
+ */
+function removeUserTweets(screenNameToRemove, tweetToExclude) {
+    const tweetArticles = document.querySelectorAll('article[data-testid="tweet"]')
+    const hiddenTweets = []
+    tweetArticles.forEach(tweet => {
+        if (tweet === tweetToExclude) return
+        const screenNameSpan = tweet.querySelector('a[href*="/"][role="link"][tabindex="-1"] span')
+        const tweetScreenName = screenNameSpan?.textContent?.replace("@", '')?.trim()
+        if (tweetScreenName === screenNameToRemove) {
+            hiddenTweets.push({ tweet, displayStyle: tweet.style.display })
+            tweet.style.display = 'none'
+        }
+    })
+    return hiddenTweets
+}
+
+/**
+ * @param {string} screenName
+ * @param {HTMLElement} tweet
+ * @param {string} previousTweetDisplayStyle
+ * @param {Array<{tweet: HTMLElement, displayStyle: string}>} hiddenTweets
+ */
+function showBlockToast(screenName, tweet, previousTweetDisplayStyle, hiddenTweets) {
     const toast = document.createElement('div')
     toast.className = 'block-toast'
     toast.innerHTML = `
@@ -80,9 +110,12 @@ function showBlockToast(screenName, tweet, previousTweetStyle) {
     undoButton.addEventListener('click', async () => {
         try {
             await blockAction(screenName, 'unblock')
-            tweet.style.display = previousTweetStyle
+            tweet.style.display = previousTweetDisplayStyle
             clearTimeout(timeoutId)
             toast.remove()
+            hiddenTweets.forEach(({ tweet, displayStyle }) => {
+                tweet.style.display = displayStyle
+            })
         } catch (error) {}
     })
 }
