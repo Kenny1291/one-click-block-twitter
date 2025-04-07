@@ -5,7 +5,8 @@
   "main": "content.js",
   "type": "module",
   "scripts": {
-    "folder": "node -e \"import('./scripts/make-test-folder.js').then(({ make }) => make())\""
+    "folder": "node -e \"import('./scripts/make-test-folder.js').then(({ make }) => make())\"",
+    "zip": "node -e \"import('./scripts/make-zip-folder.js').then(({ createZip, filesToAdd }) => createZip(filesToAdd))\""
   },
   "author": "Raiquen Guidotti",
   "license": "MIT",
@@ -15,6 +16,7 @@
     "@babel/preset-env": "^7.25.4",
     "@stylistic/eslint-plugin-js": "^2.7.2",
     "eslint": "^9.9.1",
-    "globals": "^16.0.0"
+    "globals": "^16.0.0",
+    "jszip": "^3.10.1"
   }
 }
