@@ -1,6 +1,8 @@
 # one-click-block-twitter
 A lightweight Chromium extension that adds a one-click block button to tweets.
 
+![](https://github.com/Kenny1291/readme-assets/blob/main/one-click-block-twitter/one-click-block-twitter.png)
+
 ## 📚 Features
 - **One-Click Blocking**: Adds a block button next to the "More" menu on every tweet.
 - **Undo Support**: Revert a block within 5 seconds via a toast notification.
