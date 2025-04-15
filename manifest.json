@@ -8,5 +8,10 @@
             "js": ["content.js"],
             "matches": ["https://*.twitter.com/*", "https://*.x.com/*"]
         }
-    ]
+    ],
+    "icons": {
+        "16": "images/16x16-icon.png",
+        "48": "images/48x48-icon.png",
+        "128": "images/128x128-icon.png"
+    }
 }
