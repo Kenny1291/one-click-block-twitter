@@ -23,11 +23,14 @@ async function addFolder(zip, folderPath) {
     }
 }
 
-export async function createZip(files) {
+export async function createZip(files, folders) {
     const zip = new JSZip()
 
     for (const file of files) {
         await addFile(zip, file)
+    }
+    for (const folder of folders) {
+        await addFolder(zip, folder)
     }
 
     zip.generateAsync({ type: 'nodebuffer' }).then(content => {
@@ -36,4 +39,5 @@ export async function createZip(files) {
 }
 
 export const filesToAdd = ['manifest.json', 'src/content.js']
+export const foldersToAdd = ['src/images']
 

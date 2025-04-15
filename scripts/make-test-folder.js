@@ -1,7 +1,6 @@
 import fs from 'fs-extra'
 import path from 'path'
-
-export const filesToAdd = ['manifest.json', 'src/content.js']
+import { filesToAdd, foldersToAdd } from '../scripts/make-zip-folder.js'
 
 const destinationFolder = 'dist/one-click-block-twitter/'
 
@@ -17,4 +16,7 @@ export async function make() {
     for (const file of filesToAdd) {
         await copyToDestDir(file)
     } 
+    for (const folder of foldersToAdd) {
+        await copyToDestDir(folder)
+    }
 }
