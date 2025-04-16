@@ -15,3 +15,6 @@ A lightweight Chromium extension that adds a one-click block button to tweets.
 5. Select "Load unpacked" and select the unzipped folder
 6. Keep the folder on your pc
 
+OR
+
+- Download from [Chrome Web Store](https://chromewebstore.google.com/detail/one-click-block-twitter/pjjeeedcfeeidonkpdljifbfhfdebcef)
