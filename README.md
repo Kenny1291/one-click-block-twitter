@@ -18,3 +18,4 @@ A lightweight Chromium extension that adds a one-click block button to tweets.
 OR
 
 - Download from [Chrome Web Store](https://chromewebstore.google.com/detail/one-click-block-twitter/pjjeeedcfeeidonkpdljifbfhfdebcef)
+- Download from [Edge Add-ons](https://microsoftedge.microsoft.com/addons/detail/one-click-block-twitter/mleieanpclgbkoalhngieknhpbpinagl)
