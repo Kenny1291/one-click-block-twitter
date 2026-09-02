@@ -1,4 +1,4 @@
-# one-click-block-twitter
+# One Click Block Twitter
 A lightweight Chromium extension that adds a one-click block button to tweets.
 
 ![](https://github.com/Kenny1291/readme-assets/blob/main/one-click-block-twitter/one-click-block-twitter.png)
@@ -22,4 +22,4 @@ OR
 
 ## License
 
-one-click-block-twitter is released under the [MIT License](https://opensource.org/licenses/MIT).
+One Click Block Twitter is released under the [MIT License](https://opensource.org/licenses/MIT).
