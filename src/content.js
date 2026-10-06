@@ -42,6 +42,8 @@ function injectBlockButtons() {
 
         const blockButtonWrapper = document.createElement('div')
         blockButtonWrapper.className = 'blockButtonWrapper'
+        blockButtonWrapper.setAttribute('aria-label', 'Block')
+        blockButtonWrapper.dataset.tooltip = 'Block'
         blockButtonWrapper.appendChild(blockButton)
         blockButtonWrapper.addEventListener('click', async event => {
             event.stopPropagation()
@@ -180,6 +182,33 @@ function injectStyles() {
         }
         .blockButtonWrapper:hover {
             background-color: rgba(29, 155, 240, 0.1);
+        }
+
+        .blockButtonWrapper::after {
+            content: attr(data-tooltip);
+            position: absolute;
+            top: calc(100% + 8px);
+            left: 50%;
+            transform: translateX(-50%);
+            padding: 4px 8px;
+            border-radius: 4px;
+            background-color: rgb(15, 20, 25);
+            color: rgb(255, 255, 255);
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            font-size: 13px;
+            font-weight: 400;
+            line-height: 16px;
+            white-space: nowrap;
+            pointer-events: none;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.15s ease;
+            z-index: 10000;
+        }
+        .blockButtonWrapper:hover::after,
+        .blockButtonWrapper:focus-visible::after {
+            opacity: 1;
+            visibility: visible;
         }
 
         .blockButtonWrapper .oneClickBlockTwitterButton path {
